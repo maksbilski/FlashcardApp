@@ -25,3 +25,15 @@ class Collection:
             for id, deck_data in self.serialized_data['decks'].items()
             ]
         return decklist
+
+    def update_serialized_data(self):
+        self.serialized_data['decks'] = {
+            deck.id: {
+                'name': deck.name,
+                'flashcards': [card.to_json() for card in deck.flashcards]
+            } for deck in self.decklist
+        }
+
+    def update_source_file(self):
+        with open(DECKS_DATABASE_PATH, 'w') as filehandle:
+            json.dump(self.serialized_data, filehandle)

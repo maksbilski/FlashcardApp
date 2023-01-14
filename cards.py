@@ -22,5 +22,21 @@ class Card:
         reps = json_data['reps']
         return cls(front, back, due, interval, ease_factor, reps)
 
+    def to_json(self):
+        card_data = {
+            'front': self.front,
+            'back': self.back,
+            'due': self.due,
+            'interval': self.interval,
+            'ease_factor': self.ease_factor,
+            'reps': self.reps
+        }
+        return card_data
+
     def __str__(self):
-        return f'Card Front: {self.front}\nCard back: {self.back}\nCard is due: {self.due}\nCurrent interval: {self.interval}\nCurrent ease_factor: {self.ease_factor}\nTimes this card has been answered correctly in a row: {self.reps}'
+        return (f'Card Front: {self.front}\n'
+                f'Card back: {self.back}\n'
+                f'Card is due: {self.due}\n'
+                f'Current interval: {self.interval}\n'
+                f'Current ease_factor: {self.ease_factor}\n'
+                f'Times this card has been answered correctly in a row: {self.reps}')  # NOQA

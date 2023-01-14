@@ -36,6 +36,7 @@ class FlashcardsWindow(QMainWindow):
         for card in deck.flashcards:
             card_list_item = QListWidgetItem(card.front)
             card_list_item.setData(1, card)
+            card_list_item.setData(3, deck)
             self.gui.DeckCardList.addItem(card_list_item)
         self.gui.DeckCardList.itemDoubleClicked.connect(self.select_card)
 
@@ -45,12 +46,14 @@ class FlashcardsWindow(QMainWindow):
         doubleclicked card information.
         '''
         card = card_list_item.data(1)
+        deck = card_list_item.data(3)
         self.gui.DeckStack.setCurrentIndex(2)
         self.gui.CardDataLabel.setText(str(card))
         self.gui.GoBackButton.clicked.connect(self.go_back)
 
     def go_back(self):
         self.gui.DeckStack.setCurrentIndex(1)
+
 
     def _start_review(self, listed_deck):
         pass
