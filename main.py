@@ -50,7 +50,6 @@ class FlashcardsWindow(QMainWindow):
         self.gui.DeckStack.setCurrentIndex(2)
         self.gui.CardDataLabel.setText(str(card))
         self.gui.CardRemoveButton.clicked.connect(self.remove_card(deck, card))
-        self.gui.GoBackButton.clicked.connect(self.gui.DeckStack.setCurrentIndex)
 
     def remove_card(self, deck, card):
         deck.remove_card(card)
