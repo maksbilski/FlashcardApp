@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(828, 714)
+        MainWindow.resize(828, 757)
         sizePolicy = QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -112,32 +112,75 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.CardFrontLabel)
 
+        self.CardBackLabel = QLabel(self.CardReviewPage)
+        self.CardBackLabel.setObjectName(u"CardBackLabel")
+        self.CardBackLabel.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_3.addWidget(self.CardBackLabel)
+
         self.verticalSpacer = QSpacerItem(138, 488, QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
         self.ReviewButtonsStack = QStackedWidget(self.CardReviewPage)
         self.ReviewButtonsStack.setObjectName(u"ReviewButtonsStack")
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.verticalLayout_5 = QVBoxLayout(self.page)
+        self.FlashRecallingPage = QWidget()
+        self.FlashRecallingPage.setObjectName(u"FlashRecallingPage")
+        self.verticalLayout_5 = QVBoxLayout(self.FlashRecallingPage)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.ShowAnswerButton = QPushButton(self.page)
+        self.ShowAnswerButton = QPushButton(self.FlashRecallingPage)
         self.ShowAnswerButton.setObjectName(u"ShowAnswerButton")
 
         self.verticalLayout_5.addWidget(self.ShowAnswerButton)
 
-        self.lineEdit = QLineEdit(self.page)
+        self.lineEdit = QLineEdit(self.FlashRecallingPage)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setAutoFillBackground(False)
         self.lineEdit.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.lineEdit)
 
-        self.ReviewButtonsStack.addWidget(self.page)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.ReviewButtonsStack.addWidget(self.page_2)
+        self.ReviewButtonsStack.addWidget(self.FlashRecallingPage)
+        self.RecalledAnswerPage = QWidget()
+        self.RecalledAnswerPage.setObjectName(u"RecalledAnswerPage")
+        self.verticalLayout_6 = QVBoxLayout(self.RecalledAnswerPage)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.Q5Button = QPushButton(self.RecalledAnswerPage)
+        self.Q5Button.setObjectName(u"Q5Button")
+
+        self.verticalLayout_6.addWidget(self.Q5Button)
+
+        self.Q4Button = QPushButton(self.RecalledAnswerPage)
+        self.Q4Button.setObjectName(u"Q4Button")
+
+        self.verticalLayout_6.addWidget(self.Q4Button)
+
+        self.Q3Button = QPushButton(self.RecalledAnswerPage)
+        self.Q3Button.setObjectName(u"Q3Button")
+
+        self.verticalLayout_6.addWidget(self.Q3Button)
+
+        self.ReviewButtonsStack.addWidget(self.RecalledAnswerPage)
+        self.NotRecalledAnswerPage = QWidget()
+        self.NotRecalledAnswerPage.setObjectName(u"NotRecalledAnswerPage")
+        self.verticalLayout_7 = QVBoxLayout(self.NotRecalledAnswerPage)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.Q2Button = QPushButton(self.NotRecalledAnswerPage)
+        self.Q2Button.setObjectName(u"Q2Button")
+
+        self.verticalLayout_7.addWidget(self.Q2Button)
+
+        self.Q1Button = QPushButton(self.NotRecalledAnswerPage)
+        self.Q1Button.setObjectName(u"Q1Button")
+
+        self.verticalLayout_7.addWidget(self.Q1Button)
+
+        self.Q0Button = QPushButton(self.NotRecalledAnswerPage)
+        self.Q0Button.setObjectName(u"Q0Button")
+
+        self.verticalLayout_7.addWidget(self.Q0Button)
+
+        self.ReviewButtonsStack.addWidget(self.NotRecalledAnswerPage)
 
         self.verticalLayout_3.addWidget(self.ReviewButtonsStack)
 
@@ -169,8 +212,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.DeckStack.setCurrentIndex(2)
-        self.ReviewButtonsStack.setCurrentIndex(0)
+        self.DeckStack.setCurrentIndex(3)
+        self.ReviewButtonsStack.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -189,9 +232,16 @@ class Ui_MainWindow(object):
         self.CardDataLabel.setText("")
         self.CardRemoveButton.setText(QCoreApplication.translate("MainWindow", u"Remove Card", None))
         self.GoBackButton.setText(QCoreApplication.translate("MainWindow", u"Go back to the card list", None))
-        self.CardFrontLabel.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.CardFrontLabel.setText("")
+        self.CardBackLabel.setText("")
         self.ShowAnswerButton.setText(QCoreApplication.translate("MainWindow", u"Show Answer", None))
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter Answer", None))
+        self.Q5Button.setText(QCoreApplication.translate("MainWindow", u"Perfect Recall", None))
+        self.Q4Button.setText(QCoreApplication.translate("MainWindow", u"Some Hesitation", None))
+        self.Q3Button.setText(QCoreApplication.translate("MainWindow", u"Significant Effort To Recall", None))
+        self.Q2Button.setText(QCoreApplication.translate("MainWindow", u"Seemed Easy To Remember", None))
+        self.Q1Button.setText(QCoreApplication.translate("MainWindow", u"Felt Familiar", None))
+        self.Q0Button.setText(QCoreApplication.translate("MainWindow", u"Total Blackout", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi

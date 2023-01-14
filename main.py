@@ -49,11 +49,14 @@ class FlashcardsWindow(QMainWindow):
         deck = card_list_item.data(3)
         self.gui.DeckStack.setCurrentIndex(2)
         self.gui.CardDataLabel.setText(str(card))
-        self.gui.GoBackButton.clicked.connect(self.go_back)
+        self.gui.CardRemoveButton.clicked.connect(self.remove_card(deck, card))
+        self.gui.GoBackButton.clicked.connect(self.gui.DeckStack.setCurrentIndex)
 
-    def go_back(self):
+    def remove_card(self, deck, card):
+        deck.remove_card(card)
+        self.collection.update_serialized_data()
+        self.collection.update_source_file()
         self.gui.DeckStack.setCurrentIndex(1)
-
 
     def _start_review(self, listed_deck):
         pass
