@@ -25,7 +25,7 @@ class Deck:
     def id(self):
         return self._id
 
-    def get_due_cards(self):
+    def get_due_cards():
         return [
             card for card in self._flashcards if card.due < time.time()
         ]
