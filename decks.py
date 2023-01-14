@@ -1,23 +1,32 @@
-class EmptyDeckNameError(Exception):
-    """Exception raised for an error when user
-    tries to create a deck with an empty string.
-    """
-
-    def __init__(self, name, message="Deck name can't be an empty string"):
-        self.name = name
-        self.message = message
-        super().__init__(self.message)
+from cards import Card
+from dataclasses import dataclass
 
 
+@dataclass
 class Deck:
     "This class is representing a deck of flashcards."
-    def __init__(self, name: str, flashcard_list: list = None) -> None:
-        if name.isspace():
-            raise EmptyDeckNameError(name)
+    def __init__(self, id, name: str, flashcard_list: list = None) -> None:
         if flashcard_list:
-            self.flashcards = flashcard_list
+            self._flashcards = flashcard_list
         else:
-            self.flashcards = []
-        self.name = name
+            self._flashcards = []
+        self._name = name
+        self._id = id
 
+    @property
+    def name(self):
+        return self._name
 
+    @property
+    def flashcards(self):
+        return self._flashcards
+
+    @property
+    def id(self):
+        return self._id
+
+    def add_card(self, new_card: Card) -> None:
+        self.flashcards.append(new_card)
+
+    def remove_card(self, removed_card: Card) -> None:
+        self.flashcards.remove(removed_card)

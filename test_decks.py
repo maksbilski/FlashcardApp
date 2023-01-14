@@ -1,7 +1,5 @@
-from decks import EmptyDeckNameError
-from decks import Deck
+from collection import Deck
 from cards import Card
-from pytest import raises
 
 
 def test_create_deck():
@@ -18,6 +16,7 @@ def test_create_deck_default_list():
     assert deck1.flashcards == []
 
 
-def test_create_deck_empty_name_error():
-    with raises(EmptyDeckNameError):
-        _ = Deck(' ')
+def test_add_card_to_deck():
+    deck1 = Deck('Name')
+    deck1.add_card('Apple', 'Jabłko')
+    assert deck1.flashcards == [Card('Apple', 'Jabłko')]
