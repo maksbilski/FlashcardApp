@@ -26,7 +26,7 @@ class Card:
         reps = json_data['reps']
         return cls(front, back, review_date, interval, ease_factor, reps)
 
-    def to_json(self):
+    def to_json(self) -> dict:
         card_data = {
             'front': self.front,
             'back': self.back,
@@ -46,13 +46,13 @@ class Card:
                 f"Current ease_factor: {self.ease_factor}\n"
                 f"Times this card has been answered correctly in a row: {self.reps}")  # NOQA
 
-    def review(self, quality: int) -> None:
+    def calculate_review_date(self, quality: int) -> None:
         if quality >= 3:
             self.interval = 1 if self.reps == 0 else 6 if self.reps == 1 else round(self.interval * self.ease_factor) # NOQA
             self.reps += 1
         else:
             self.reps = 0
             self.interval = 1
-        self.ease_factor += (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
-        self.ease_factor = max(1.3, self.ease_factor)
+        self.ease_factor += (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)) # NOQA
+        self.ease_factor = max(1.3, ceil(self.ease_factor))
         self.review_date = int(time.time() + self.interval * SECONDS_IN_A_DAY)

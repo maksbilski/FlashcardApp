@@ -1,5 +1,6 @@
 from PySide2.QtWidgets import QApplication, QMainWindow, QListWidgetItem
-from gui import Ui_MainWindow
+from ui.addcardwindow import Ui_AddCardWindow
+from ui.mainwindow import Ui_MainWindow
 from collection import Collection
 from cards import Card
 from queue import Queue
@@ -11,25 +12,49 @@ class FlashcardsWindow(QMainWindow):
         super().__init__(parent)
         self.gui = Ui_MainWindow()
         self.gui.setupUi(self)
-        self.setupDeckList()
-        self.setupStateManagementAttributes()
-        self.setupButtons()
         self.collection = Collection()
-
-    def setupStateManagementAttributes(self):
-        self.currentDeckListItem = None
-        self.currentCard = None
-        self.currentDeck = None
+        self.setupDeckList()
+        self.setupButtons()
+        self.setupCardReviewQualityButtons()
 
     def setupButtons(self):
-        self.gui.cardList.itemDoubleClicked.connect(self.selectCard)
-        # cardList buttons
-        self.gui.cardRemoveButton.clicked.connect(self.removeCardAndSwitchPage) # NOQA
+        # cardListPageButtons
         self.gui.goBackButton.clicked.connect(lambda: self.selectDeck(self.currentDeckListItem)) # NOQA
         self.gui.reviewStartButton.clicked.connect(self.startReview)# NOQA
+        self.gui.cardList.itemDoubleClicked.connect(self.selectCard)
+        # cardDataPage buttons
+        self.gui.cardRemoveButton.clicked.connect(self.removeCardAndSwitchPage) # NOQA
         # Card review buttons
-        self.gui.showAnswerButton.clicked.connect(lambda: self.setupAnswerNotRecalledPage(self.currentReviewedCard)) # NOQA
-        self.gui.submitAnswerButton.clicked.connect(lambda: self.validateAnswer(self.currentReviewedCard, self.gui.AnswerParser.text())) # NOQA
+        self.gui.showAnswerButton.clicked.connect(lambda: self.setupCardAnsweredPage('not answered')) # NOQA
+        self.gui.submitAnswerButton.clicked.connect(lambda: self.validateAnswer(self.gui.answerParser.text())) # NOQA
+        # AddCardWindow show button
+        self.gui.showAddCardWindowButton.clicked.connect(lambda: self.showAddCardWindow()) # NOQA
+
+    def showAddCardWindow(self):
+        self.addCardWindow = QMainWindow(self)
+        self.addCardUi = Ui_AddCardWindow()
+        self.addCardUi.setupUi(self.addCardWindow)
+        self.addCardUi.addCardButton.clicked.connect(
+            lambda: self.addNewCard(Card(
+                self.addCardUi.cardFrontEdit.text(),
+                self.addCardUi.cardBackEdit.text()
+                ))
+            )
+        self.addCardWindow.show()
+
+    def addNewCard(self, new_card: Card):
+        self.currentDeck.add_card(new_card)
+        self.collection.update_serialized_data()
+        self.collection.update_source_file()
+        self.selectDeck(self.currentDeckListItem)
+
+    def setupCardReviewQualityButtons(self):
+        self.gui.Q0Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(0)) # NOQA
+        self.gui.Q1Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(1)) # NOQA
+        self.gui.Q2Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(2)) # NOQA
+        self.gui.Q3Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(3)) # NOQA
+        self.gui.Q4Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(4)) # NOQA
+        self.gui.Q5Button.clicked.connect(lambda: self.calculateReviewDateCallNextCard(5)) # NOQA
 
     def setupDeckList(self):
         '''
@@ -50,12 +75,13 @@ class FlashcardsWindow(QMainWindow):
         '''
         self.currentDeck, self.currentDeckListItem = deck_list_item.deck, deck_list_item # NOQA
         self.gui.cardList.clear()
+        due_cards_count = len(self.currentDeck.get_due_cards())
+        self.gui.dueCardCountLabel.setText(f"Due card's count: {due_cards_count}") # NOQA
         self.gui.deckStack.setCurrentIndex(1)
         for card in self.currentDeck.flashcards:
             card_list_item = QListWidgetItem(card.front)
             card_list_item.card = card
             self.gui.cardList.addItem(card_list_item)
-
 
     def selectCard(self, card_list_item: QListWidgetItem) -> None:
         self.currentCard = card_list_item.card
@@ -64,7 +90,9 @@ class FlashcardsWindow(QMainWindow):
 
     def removeCardAndSwitchPage(self):
         self.currentDeck.remove_card(self.currentCard)
-        self.selectDeck(self.currentDeckListItem)b
+        self.selectDeck(self.currentDeckListItem)
+        self.collection.update_serialized_data()
+        self.collection.update_source_file()
 
     def startReview(self):
         due_cards = self.currentDeck.get_due_cards()
@@ -81,10 +109,10 @@ class FlashcardsWindow(QMainWindow):
         self.reviewCard(self.reviewQueue.get())
 
     def reviewCard(self, card):
-        # Next line sets up the self.currentReviewedCard attribute value
-        # to the card that was next in the self.reviewQueue, so that
-        # the functions that are connected to showAnswerButton
-        # and submitAnsweredButton get the current reviewed card.
+        # Next line assigns the self.currentReviewedCard attribute value
+        # to the card that was pased on from the queue so that this data
+        # can be easily accessed from parts of GUI.
+        self.gui.answerParser.clear()
         self.currentReviewedCard = card
         self.gui.cardFrontLabel.setText(card.front)
         self.gui.cardBackLabel.setText("")
@@ -92,35 +120,39 @@ class FlashcardsWindow(QMainWindow):
         self.gui.reviewButtonsStack.setCurrentIndex(0)
         # Button connections are setup in FlashcardWindow.setupButtons method.
 
-    def validateAnswer(self, card: Card, users_answer: str):
-        if users_answer == card.back:
-            self.setupAnswerRecalledPage(card)
+    def validateAnswer(self, users_answer: str):
+        if users_answer == self.currentReviewedCard.back:
+            self.setupCardAnsweredPage('answered')
         else:
-            self.setupAnswerNotRecalledPage(card)
+            self.setupCardAnsweredPage('not answered')
 
-    # def setupAnswerRecalledPage(self, card, due_cards):
-    #     text = "Correct answer!.\nHow easy was the information for you to recall?" # NOQA
-    #     self.gui.ReviewNotifierLabel.setText(text)
-    #     self.gui.CardBackLabel.setText(card.back)
-    #     self.gui.ReviewButtonsStack.setCurrentIndex(1)
-    #     self.gui.Q3Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 3)) # NOQA
-    #     self.gui.Q4Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 3)) # NOQA
-    #     self.gui.Q5Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 3)) # NOQA
+    def setupCardAnsweredPage(self, answer_validation_result: str):
+        notify_texts = {
+            "answered": "correct answer!.\nHow easy was the information for you to recall?", # NOQA
+            "not answered": "Upon seeing the back of the card\nhow familiar the information seems to you?" # NOQA
+            }
+        stack_indexes = {
+            "answered": 1,
+            "not answered": 2
+            } # NOQA
+        self.gui.reviewNotifierLabel.setText(notify_texts[answer_validation_result]) # NOQA
+        self.gui.cardBackLabel.setText(self.currentReviewedCard.back)
+        self.gui.reviewButtonsStack.setCurrentIndex(stack_indexes[answer_validation_result]) # NOQA
+        # Button coinnections are setup in FlashcardWindow.setupCardReviewQualityButtons method # NOQA
 
-    # def setupAnswerNotRecalledPage(self, card, due_cards):
-    #     text = "Upon seeing the back of the card.\nHow familiar the information seems to you?" # NOQA
-    #     self.gui.ReviewNotifierLabel.setText(text)
-    #     self.gui.CardBackLabel.setText(card.back)
-    #     self.gui.ReviewButtonsStack.setCurrentIndex(2)
-    #     self.gui.Q0Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 0)) # NOQA
-    #     self.gui.Q1Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 1)) # NOQA
-    #     self.gui.Q2Button.clicked.connect(lambda: self.reviewCardAndReviewNextCard(card, due_cards, 2)) # NOQA
+    def calculateReviewDateCallNextCard(self, quality):
+        '''
+        Whole purpose of this method is to assign Card.review method call
+        and FlashcardWindow.reviewNextCard to one pushButton.clicked signal.
+        '''
+        self.currentReviewedCard.calculate_review_date(quality)
+        self.reviewNextCard()
 
-    # def reviewDone(self):
-    #     self.gui.DeckStack.setCurrentIndex(0)
-    #     self.gui.FirstPageLabel.setText("Congratulations!\n You have finished this deck for now.") # NOQA
-    #     self.collection.update_serialized_data()
-    #     self.collection.update_source_file()
+    def reviewDone(self):
+        self.gui.deckStack.setCurrentIndex(0)
+        self.gui.firstPageLabel.setText("Congratulations!\n You have finished this deck for now.") # NOQA
+        self.collection.update_serialized_data()
+        self.collection.update_source_file()
 
 
 def guiMain(args):
