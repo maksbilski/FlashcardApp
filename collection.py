@@ -16,6 +16,19 @@ class Collection:
         self.serialized_data = load_decks_data()
         self.decklist = self.load_decklist()
 
+    def export_deck_to_json(self, deck: Deck, filepath: str):
+        """
+        Exports the specified deck to a JSON file at the specified filepath.
+        :param deck: The Deck object to be exported
+        :param filepath: The filepath to save the JSON file
+        """
+        deck_data = {
+            'name': deck.name,
+            'flashcards': [card.to_json() for card in deck.flashcards]
+        }
+        with open(filepath, 'w') as filehandle:
+            json.dump(deck_data, filehandle)
+
     def load_decklist(self):
         decklist = [
             Deck(deck_data['name'], [

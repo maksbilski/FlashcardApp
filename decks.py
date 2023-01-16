@@ -7,21 +7,6 @@ import time
 class Deck:
     name: str
     flashcards: list = field(default_factory=list)
-    # "This class is representing a deck of flashcards."
-    # def __init__(self, name: str, flashcard_list: list = None) -> None:
-    #     if flashcard_list:
-    #         self._flashcards = flashcard_list
-    #     else:
-    #         self._flashcards = []
-    #     self._name = name
-
-    # @property
-    # def name(self):
-    #     return self._name
-
-    # @property
-    # def flashcards(self):
-    #     return self._flashcards
 
     def get_due_cards(self):
         return [

@@ -129,10 +129,8 @@ class FlashcardsWindow(QMainWindow):
         """
         Adds a new card to the current selected deck.
 
-        :param card_front: Text that will be on the front of the card
-        :type card_front: str
-        :param card_back: Text that will be on the back of the card
-        :type card_back: str
+        :param card_front: str, Text that will be on the front of the card
+        :param card_back: str, Text that will be on the back of the card
 
         :raises EmptyUserInpurtError: When card_front or card_back is empty.
         """
@@ -169,8 +167,8 @@ class FlashcardsWindow(QMainWindow):
         Creates a new deck with the given name
         and adds it to the collection of flashcards.
 
-        :param new_deck_name: The name of the new deck
-        :type new_deck_name: str
+        :param new_deck_name: str, The name of the new deck
+
         :raises EmptyUserInputError: If new_deck_name is empty or None
         """
         try:
@@ -202,8 +200,7 @@ class FlashcardsWindow(QMainWindow):
         """
         Displays an error message in a QMessageBox.
 
-        :param e: The exception object that contains an error message.
-        :type e: Exception
+        :param e: Exception, exception object that contains an error message.
         """
         error_message = QMessageBox()
         error_message.setIcon(QMessageBox.Warning)
@@ -238,7 +235,6 @@ class FlashcardsWindow(QMainWindow):
         Selects and displays the data of the selected card from the card list.
 
         :param card_list_item: The selected card's QListWidgetItem
-        :type card_list_item: QListWidgetItem
         """
         self.currentCard = card_list_item.card
         self.gui.deckStack.setCurrentIndex(2)
@@ -295,8 +291,7 @@ class FlashcardsWindow(QMainWindow):
         It also prepares the UI for test by clearing the answer field
         and hiding the backside of the card.
 
-        :param card: The card object to be tested
-        :type card: Card
+        :param card: Card, The card object to be tested
         """
         self.gui.testAnswerParser.clear()
         self.currentTestedCard = card
@@ -311,8 +306,7 @@ class FlashcardsWindow(QMainWindow):
         updates the list of correctly and incorrectly answered cards.
         Proceeds to the next card in the test queue.
 
-        :param users_answer: The answer given by the user
-        :type users_answer: str
+        :param users_answer: str, The answer given by the user
         """
         if users_answer.strip() == self.currentTestedCard.back:
             self.gui.correctlyAnsweredCardsList.addItem(
@@ -375,8 +369,7 @@ class FlashcardsWindow(QMainWindow):
         It also prepares the UI for review by clearing the answer field
         and hiding the backside of the card.
 
-        :param card: the Card object to be reviewed
-        :param type: Card
+        :param card: Card, the Card object to be reviewed
         """
         self.gui.answerParser.clear()
         self.currentReviewedCard = card
@@ -390,9 +383,8 @@ class FlashcardsWindow(QMainWindow):
         Validates the answer passed by the user and returns
         a string that indicates if the answer was correct or not.
 
-        :param users_answer: 'answered' if users answer was correct
+        :param users_answer: str, 'answered' if users answer was correct
                         'not aswered' if it wasn't
-        :type users_answer: str
 
         """
         if users_answer.strip() == self.currentReviewedCard.back:
@@ -401,6 +393,16 @@ class FlashcardsWindow(QMainWindow):
             self.setupCardAnsweredPage('not answered')
 
     def setupCardAnsweredPage(self, answer_validation_result: str) -> None:
+        """
+        This method sets up the user interface for the page
+        that appears after the user has answered a flashcard.
+        It displays the back of the card, and sets up the buttons
+        for rating the ease of recall or familiarity
+         of the information on the card.
+        :param answer_validation_result: represents whether the user's answer
+            was correct or not. It's either "answered" or "not answered".
+        :type answer_validation_result: str
+        """
         notify_texts = {
             "answered": "Correct answer!.\nHow easy was the information for you to recall?", # NOQA
             "not answered": "You didn't know the Answer.\nUpon seeing the back of the card\nhow familiar the information seems to you?" # NOQA
@@ -416,14 +418,23 @@ class FlashcardsWindow(QMainWindow):
 
     def calculateReviewDateCallNextCard(self, quality) -> None:
         """
-        Whole purpose of this method is to assign Card.review method call
-        and FlashcardWindow.reviewNextCardFromTheQueue
-        to one pushButton.clicked signal.
+        Calculates the next review date for the current card
+        based on the given quality and reviews the next card from the queue
+        :param quality: int, represents the quality of user's familiarity
+            currently reviewed card.
         """
         self.currentReviewedCard.calculate_review_date(quality)
         self.reviewNextCardFromTheQueue()
 
     def reviewDone(self) -> None:
+        """
+        Sets up the user interface for the page that appears
+        after the user has finished reviewing all the cards
+        in the current deck.
+        It also updates the serialized data and the source file
+        with the current state of the self.collection attribute
+        so all of the cards' updated review dates are saved
+        """
         self.gui.deckStack.setCurrentIndex(0)
         self.gui.firstPageLabel.setText(
             "Congratulations!\n You have finished this deck for now.\n"
