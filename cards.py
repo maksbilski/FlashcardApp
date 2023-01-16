@@ -38,7 +38,10 @@ class Card:
         return card_data
 
     def __str__(self):
-        readable_time = datetime.fromtimestamp(self.review_date).strftime('%Y-%m-%d %H:%M:%S') # NOQA
+        if self.review_date == 0:
+            readable_time = "card hasn't been reviewed yet."
+        else:
+            readable_time = datetime.fromtimestamp(self.review_date).strftime('%Y-%m-%d %H:%M:%S') # NOQA
         return (f"Card Front: {self.front}\n"
                 f"Card back: {self.back}\n"
                 f"Card's next review date is: {readable_time}\n"
