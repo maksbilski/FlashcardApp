@@ -458,8 +458,7 @@ class FlashcardsWindow(QMainWindow):
         This method sets up the user interface for the page
         that appears after the user has answered a flashcard.
         It displays the back of the card, and sets up the buttons
-        for rating the ease of recall or familiarity
-         of the information on the card.
+        for rating familiarity of the information on the card.
         :param answer_validation_result: represents whether the user's answer
             was correct or not. It's either "answered" or "not answered".
         :type answer_validation_result: str
