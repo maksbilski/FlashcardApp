@@ -12,7 +12,7 @@ class Deck:
     name: str
     flashcards: list = field(default_factory=list)
 
-    def get_due_cards(self):
+    def get_due_cards(self) -> list:
         """
         Returns a list of flashcards whose review date is
         less than or equal to the current time in UNIX Timestamp format.
