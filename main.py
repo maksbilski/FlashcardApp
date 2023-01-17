@@ -11,8 +11,8 @@ from ui.mainwindow import Ui_MainWindow
 from collection import Collection
 from cards import Card
 from decks import Deck
-from queue import Queue
 from errors import EmptyUserInputError, MalformedDeckDataError
+from queue import Queue
 import sys
 
 

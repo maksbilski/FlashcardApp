@@ -76,6 +76,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_11.addWidget(self.deckDeleteButton, 0, Qt.AlignHCenter)
 
+        self.deckExportButton = QPushButton(self.page_2)
+        self.deckExportButton.setObjectName(u"deckExportButton")
+        sizePolicy2.setHeightForWidth(self.deckExportButton.sizePolicy().hasHeightForWidth())
+        self.deckExportButton.setSizePolicy(sizePolicy2)
+
+        self.verticalLayout_11.addWidget(self.deckExportButton, 0, Qt.AlignHCenter)
+
         self.deckDeleteButtonStack.addWidget(self.page_2)
 
         self.verticalLayout_9.addWidget(self.deckDeleteButtonStack)
@@ -339,8 +346,9 @@ class Ui_MainWindow(object):
         MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
 
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionImport)
-        self.menuFile.addAction(self.actionExport)
+        self.menuFile.addSeparator()
         self.toolBar.addAction(self.deckCreateAction)
         self.toolBar.addAction(self.statsViewer)
 
@@ -356,7 +364,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Flashcard App", None))
-        self.actionImport.setText(QCoreApplication.translate("MainWindow", u"Import...", None))
+        self.actionImport.setText(QCoreApplication.translate("MainWindow", u"Import Deck...", None))
         self.actionExport.setText(QCoreApplication.translate("MainWindow", u"Export...", None))
         self.deckCreateAction.setText(QCoreApplication.translate("MainWindow", u"Create Deck", None))
 #if QT_CONFIG(tooltip)
@@ -364,6 +372,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.statsViewer.setText(QCoreApplication.translate("MainWindow", u"Stats", None))
         self.deckDeleteButton.setText(QCoreApplication.translate("MainWindow", u"Delete Highlighted Deck", None))
+        self.deckExportButton.setText(QCoreApplication.translate("MainWindow", u"Export Highlighted Deck", None))
         self.firstPageLabel.setText("")
         self.dueCardCountLabel.setText("")
         self.showAddCardWindowButton.setText(QCoreApplication.translate("MainWindow", u"Add Flashcard", None))
