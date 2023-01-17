@@ -4,6 +4,7 @@ from PySide2.QtWidgets import (
     QListWidgetItem,
     QMessageBox
 )
+from ui.iowindow import Ui_deckIOWindow
 from ui.createdeckwindow import Ui_DeckCreationWindow
 from ui.addcardwindow import Ui_AddCardWindow
 from ui.mainwindow import Ui_MainWindow
@@ -11,7 +12,7 @@ from collection import Collection
 from cards import Card
 from decks import Deck
 from queue import Queue
-from errors import EmptyUserInputError
+from errors import EmptyUserInputError, MalformedDeckDataError
 import sys
 
 
@@ -39,6 +40,7 @@ class FlashcardsWindow(QMainWindow):
         Connects actions to their designated methods.
         """
         self.gui.deckCreateAction.triggered.connect(self.showDeckCreatorWindow)
+        self.gui.actionImport.triggered.connect(self.showDeckImportWindow)
 
     def setupCardReviewQualityButtons(self) -> None:
         """
@@ -63,6 +65,9 @@ class FlashcardsWindow(QMainWindow):
         self.gui.deckList.itemClicked.connect(self.selectDeck)
         self.gui.deckDeleteButton.clicked.connect(
             lambda: self.removeDeckAndSwitchPage())
+        self.gui.deckExportButton.clicked.connect(self.showDeckExportWindow)
+        self.gui.showAddCardWindowButton.clicked.connect(
+            lambda: self.showAddCardWindow())
 
     def setupCardListRelatedPageButtons(self) -> None:
         """
@@ -72,8 +77,6 @@ class FlashcardsWindow(QMainWindow):
         self.gui.cardList.itemDoubleClicked.connect(self.selectCard)
         self.gui.testStartButton.clicked.connect(self.startTest)
         self.gui.reviewStartButton.clicked.connect(self.startReview)
-        self.gui.showAddCardWindowButton.clicked.connect(
-            lambda: self.showAddCardWindow())
 
     def setupCardDataPageButtons(self) -> None:
         """
@@ -108,6 +111,68 @@ class FlashcardsWindow(QMainWindow):
             deck_list_item.deck = deck
             self.gui.deckList.addItem(deck_list_item)
 
+    def showDeckImportWindow(self) -> None:
+        """
+        Shows the deck import window and sets up the UI.
+        It also connects the import button to the importDeck method.
+        """
+        self.deckImportWindow = QMainWindow(self)
+        self.deckImportUi = Ui_deckIOWindow()
+        self.deckImportUi.setupUi(self.deckImportWindow)
+        self.deckImportUi.ioLabel.setText("Enter path of imported deck:")
+        self.deckImportWindow.show()
+        self.deckImportUi.deckIOButton.setText("Import Deck")
+        self.deckImportUi.deckIOButton.clicked.connect(
+            lambda: self.importDeck(self.deckImportUi.pathParser.text()))
+
+    def importDeck(self, filepath: str) -> None:
+        """
+        Imports the deck from the specified filepath,
+        updates the source file and updates the deck list.
+
+        :param filepath: str, path of the file that user wants to import
+
+        :raises FileNotFoundError: if parsed pathfile doesn't exist
+        :raises MalformedDeckDataError: if file at the filepath argument
+            doesn't exist.
+        """
+        try:
+            self.collection.import_deck_from_json(filepath)
+            self.collection.update_source_file()
+            self.setupDeckList()
+            self.deckImportWindow.close()
+        except FileNotFoundError as e:
+            self.showError(e)
+        except MalformedDeckDataError as e:
+            self.showError(e)
+
+    def showDeckExportWindow(self) -> None:
+        """
+        Shows the deck export window and sets up the UI.
+        It also connects the export button to the importDeck method.
+        Similar to how showDeckImportMethod works
+        """
+        self.deckExportWindow = QMainWindow(self)
+        self.deckExportUi = Ui_deckIOWindow()
+        self.deckExportUi.setupUi(self.deckExportWindow)
+        self.deckExportUi.ioLabel.setText("Enter path of Exported deck:")
+        self.deckExportWindow.show()
+        self.deckExportUi.deckIOButton.setText("Exported Deck")
+        self.deckExportUi.deckIOButton.clicked.connect(
+            lambda: self.exportDeck(self.deckExportUi.pathParser.text()))
+
+    def exportDeck(self, filepath: str) -> None:
+        """
+        Exports the deck the specified filepath.
+
+        :param filepath: str, path at which de deck will be exported
+        """
+        try:
+            self.collection.export_deck_to_json(self.currentDeck, filepath)
+            self.deckExportWindow.close()
+        except Exception as e:
+            self.showError(e)
+
     def showAddCardWindow(self) -> None:
         """
         Opens a window for creating a new card,
@@ -139,7 +204,6 @@ class FlashcardsWindow(QMainWindow):
                 raise EmptyUserInputError(
                         "You can't create a card with an empty side")
             self.currentDeck.add_card(Card(card_front, card_back))
-            self.collection.update_serialized_data()
             self.collection.update_source_file()
             self.selectDeck(self.currentDeckListItem)
             self.addCardUi.cardFrontEdit.clear()
@@ -176,7 +240,6 @@ class FlashcardsWindow(QMainWindow):
                 raise EmptyUserInputError(
                         "You can't create a deck without a name")
             self.collection.add_deck(Deck(new_deck_name))
-            self.collection.update_serialized_data()
             self.collection.update_source_file()
             self.setupDeckList()
             self.createDeckWindow.close()
@@ -191,7 +254,6 @@ class FlashcardsWindow(QMainWindow):
         """
         self.collection.decklist.remove(self.currentDeck)
         self.setupDeckList()
-        self.collection.update_serialized_data()
         self.collection.update_source_file()
         self.gui.deckStack.setCurrentIndex(0)
         self.gui.deckDeleteButtonStack.setCurrentIndex(0)
@@ -253,7 +315,6 @@ class FlashcardsWindow(QMainWindow):
         """
         self.currentDeck.remove_card(self.currentCard)
         self.selectDeck(self.currentDeckListItem)
-        self.collection.update_serialized_data()
         self.collection.update_source_file()
 
     def startTest(self) -> None:
@@ -441,7 +502,6 @@ class FlashcardsWindow(QMainWindow):
             "If you wish to study outside the planned schedule\n"
             "you can take a test from the card list page."
             )
-        self.collection.update_serialized_data()
         self.collection.update_source_file()
 
 

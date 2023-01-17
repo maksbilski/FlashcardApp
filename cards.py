@@ -33,6 +33,11 @@ class Card:
 
     @classmethod
     def from_json(cls, json_data):
+        """
+        Creates a Card object from a JSON data.
+        :param json_data: JSON data containing the card information
+        :return: a Card object
+        """
         front = json_data['front']
         back = json_data['back']
         review_date = json_data['review_date']
@@ -42,6 +47,10 @@ class Card:
         return cls(front, back, review_date, interval, ease_factor, reps)
 
     def to_json(self) -> dict:
+        """
+        Returns a JSON object containing the card information
+        :return: a dictionary in JSON format
+        """
         card_data = {
             'front': self.front,
             'back': self.back,
