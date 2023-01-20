@@ -9,6 +9,7 @@ from ui.createdeckwindow import Ui_DeckCreationWindow
 from ui.addcardwindow import Ui_AddCardWindow
 from ui.mainwindow import Ui_MainWindow
 from collection import Collection
+from statisticshandler import StatisticsHandler
 from cards import Card
 from decks import Deck
 from errors import EmptyUserInputError, MalformedDeckDataError
@@ -24,11 +25,15 @@ class FlashcardsWindow(QMainWindow):
         all buttons and action connection methods are called.
         """
         super().__init__(parent)
+
         self.gui = Ui_MainWindow()
         self.gui.setupUi(self)
+
         self.collection = Collection()
+
         self.setupDeckList()
         self.setupActions()
+
         self.setupDeckListRelatedButtons()
         self.setupCardReviewQualityButtons()
         self.setupCardListRelatedPageButtons()

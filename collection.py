@@ -4,10 +4,15 @@ from decks import Deck
 import json
 
 
-DECKS_SOURCEFILE_PATH = "data/decks.json"
+DECKS_SOURCEFILE_PATH = "source/decks.json"
 
 
 def load_decks_data(path=DECKS_SOURCEFILE_PATH):
+    '''
+    Loads up all statistics data from passed path
+    :param path: str, stats source file path, defaults to
+        DECKS_SOURCEFILE_PATH
+    '''
     with open(path, 'r') as filehandle:
         data = json.load(filehandle)
         return data
