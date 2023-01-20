@@ -61,7 +61,7 @@ class Card:
         }
         return card_data
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Returns a string representation of the card object,
         including the card's front, back, next review date,

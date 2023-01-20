@@ -1,4 +1,4 @@
-from cards import Card
+from classes.cards import Card
 from dataclasses import dataclass, field
 import time
 
@@ -16,6 +16,8 @@ class Deck:
         """
         Returns a list of flashcards whose review date is
         less than or equal to the current time in UNIX Timestamp format.
+
+        :return: list, list of all decks that are due for review
         """
         return [
             card for card in self.flashcards if card.review_date <= time.time() # NOQA

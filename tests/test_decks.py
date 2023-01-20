@@ -1,7 +1,7 @@
 import time
 import pytest # NOQA
-from cards import Card
-from decks import Deck
+from classes.cards import Card
+from classes.decks import Deck
 
 
 def test_get_due_cards(monkeypatch):

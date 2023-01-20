@@ -1,17 +1,19 @@
-from errors import MalformedDeckDataError
-from cards import Card
-from decks import Deck
+from classes.errors import MalformedDeckDataError
+from classes.cards import Card
+from classes.decks import Deck
 import json
 
 
 DECKS_SOURCEFILE_PATH = "source/decks.json"
 
 
-def load_decks_data(path=DECKS_SOURCEFILE_PATH):
+def load_decks_data(path=DECKS_SOURCEFILE_PATH) -> list:
     '''
     Loads up all statistics data from passed path
     :param path: str, stats source file path, defaults to
         DECKS_SOURCEFILE_PATH
+
+    :return: list, a list with JSON type data for all deck objects.
     '''
     with open(path, 'r') as filehandle:
         data = json.load(filehandle)
@@ -22,7 +24,11 @@ class Collection:
     '''
     Class representing a collection of all the decks that are
     being currently used in the application.
-    It provides
+    It's the main storage of all the decks.
+    It provides the functionality for loading and saving
+    current decks data to source files.
+    Also it provides method for exporting and importing decks
+    from parsed filepaths
     '''
     def __init__(self) -> None:
         self.decklist = self.load_decklist()
