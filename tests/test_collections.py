@@ -103,7 +103,7 @@ def test_load_decklist(monkeypatch):
             ]
         }
     ]
-    monkeypatch.setattr('collection.load_decks_data', lambda: json_data)
+    monkeypatch.setattr('classes.collection.load_decks_data', lambda: json_data) # NOQA
     collection = Collection()
     assert collection.decklist == [
         Deck("Fruits and their colors", [
