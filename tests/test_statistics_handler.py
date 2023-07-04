@@ -1,4 +1,4 @@
-from classes.statisticshandler import StatisticsHandler
+from source.statisticshandler import StatisticsHandler
 from freezegun import freeze_time
 import pytest
 

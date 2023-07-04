@@ -1,4 +1,4 @@
-from classes.cards import Card
+from source.cards import Card
 from datetime import datetime
 import time
 

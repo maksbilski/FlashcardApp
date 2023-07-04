@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import (
     QApplication
 )
-from classes.flashcardswindow import FlashcardsWindow
+from source.flashcardswindow import FlashcardsWindow
 import sys
 
 def guiMain(args):

@@ -1,6 +1,6 @@
-from classes.collection import Collection, load_decks_data
-from classes.cards import Card
-from classes.decks import Deck
+from source.collection import Collection, load_decks_data
+from source.cards import Card
+from source.decks import Deck
 import os
 import tempfile
 import json

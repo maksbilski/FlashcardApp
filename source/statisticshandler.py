@@ -6,7 +6,7 @@ import locale
 import json
 
 
-STATISTICS_SOURCEFILE_PATH = "source/stats.json"
+STATISTICS_SOURCEFILE_PATH = "data/stats.json"
 
 
 def load_stats_data(path=STATISTICS_SOURCEFILE_PATH):
@@ -56,7 +56,7 @@ class StatisticsHandler:
                 f"Total review sessions count: {total_review_sessions_count}\n"
                 f"Total card reviews count: {total_cards_review_count}\n")
 
-    def plot_daily_stats(self, datapiece: str) -> None: # NOQA
+    def plot_daily_stats(self, datapiece: str) -> None:
         """
         Generates a bar plot that shows the
         daily statistics of a specific data piece for the current month.
@@ -75,9 +75,9 @@ class StatisticsHandler:
         current_year = current_date.strftime("%Y")
         current_month = current_date.strftime("%B")
         formatted_string = datapiece.replace("_", " ").capitalize()
-        title_string = f"Daily {formatted_string} in " + current_month + " " + current_year # NOQA
+        title_string = f"Daily {formatted_string} in " + current_month + " " + current_year
 
-        current_month_data = self.stats['yearly'][str(current_date.year)][str(current_date.month)] # NOQA
+        current_month_data = self.stats['yearly'][str(current_date.year)][str(current_date.month)]
         x = current_month_data.keys()
         if datapiece == 'minutes':
             y = [
@@ -87,6 +87,8 @@ class StatisticsHandler:
         else:
             y = [value[datapiece] for value in current_month_data.values()]
 
+        plt.figure(num=title_string)
+
         plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
         plt.bar(x, y, color="blueviolet")
         plt.xlabel('Day', fontsize=9, fontweight='bold')
@@ -95,6 +97,7 @@ class StatisticsHandler:
         plt.grid(True, axis='y')
         plt.xticks(rotation=30, fontsize=6.5)
         plt.show(block=False)
+
 
     def get_monthly_total(self, year=None, month=None) -> str:
         """

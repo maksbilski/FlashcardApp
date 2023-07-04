@@ -1,10 +1,10 @@
-from classes.errors import MalformedDeckDataError
-from classes.cards import Card
-from classes.decks import Deck
+from source.errors import MalformedDeckDataError
+from source.cards import Card
+from source.decks import Deck
 import json
 
 
-DECKS_SOURCEFILE_PATH = "source/decks.json"
+DECKS_SOURCEFILE_PATH = "data/decks.json"
 
 
 def load_decks_data(path=DECKS_SOURCEFILE_PATH) -> list:

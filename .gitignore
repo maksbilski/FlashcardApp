@@ -1,0 +1,15 @@
+# Ignore pytest cache directory
+.pytest_cache/
+
+# Ignore VSCode configuration directory
+.vscode/
+
+# Ignore __pycache__ directories anywhere in the source directory
+source/**/__pycache__/
+
+# Ignore pytest_cache directories anywhere in the tests directory
+tests/**/pytest_cache/
+
+tests/**/__pycache__/
+
+ui/**/__pycache__/
