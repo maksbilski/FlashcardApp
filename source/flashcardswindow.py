@@ -17,6 +17,28 @@ from source.errors import EmptyUserInputError, MalformedDeckDataError
 from queue import Queue
 
 class FlashcardsWindow(QMainWindow):
+    """
+    The main window of a flashcard application, facilitating the management and review of flashcards.
+    
+    The FlashcardsWindow class is responsible for rendering the main application window, loading and saving 
+    flashcards, as well as orchestrating the review process. It makes use of the SM-2 algorithm to optimize 
+    the review scheduling.
+    
+    Attributes:
+        cards (list of Card): The list of flashcards loaded into the application.
+        current_card_index (int): The index of the currently displayed card.
+        show_back (bool): Determines whether the back of the card is displayed.
+        quit_button (tk.Button): Button widget to quit the application.
+        show_answer_button (tk.Button): Button widget to display the back of the current card.
+        hard_button (tk.Button): Button widget to indicate a low familiarity with the current card.
+        good_button (tk.Button): Button widget to indicate moderate familiarity with the current card.
+        easy_button (tk.Button): Button widget to indicate high familiarity with the current card.
+        card_front (tk.Label): Label widget displaying the front of the current card.
+        card_back (tk.Label): Label widget displaying the back of the current card.
+        results_label (tk.Label): Label widget to display results of user interactions.
+        scheduler (Scheduler): An instance of Scheduler class responsible for scheduling card reviews.
+        _cards_file (str): File path for storing the flashcards.
+    """
     def __init__(self, parent=None) -> None:
         """
         Main window initialization method. Here the deck list widget is set up,
