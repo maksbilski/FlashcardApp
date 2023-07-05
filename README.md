@@ -67,13 +67,13 @@ In FlashcardApp, the "Start Review" feature incorporates a powerful learning tec
 
 The SM-2 algorithm is used in Review Mode to calculate the optimal intervals between reviews, enhancing memory retention. Here’s how it's integrated:
 
-    The user’s personal rating of their knowledge of the flashcard plays a crucial role. The user rates their recall on a scale (e.g., from 0 to 5), with higher values indicating easier recall.
+The user’s personal rating of their knowledge of the flashcard plays a crucial role. The user rates their recall on a scale (e.g., from 0 to 5), with higher values indicating easier recall.
 
-    Based on this rating, the SM-2 algorithm adjusts the Easiness Factor (EF) and calculates the next review date. The algorithm takes into account the number of times the card has been reviewed (n) and uses the rating to update the EF.
+Based on this rating, the SM-2 algorithm adjusts the Easiness Factor (EF) and calculates the next review date. The algorithm takes into account the number of times the card has been reviewed (n) and uses the rating to update the EF.
 
-    The interval (I) before the card should be reviewed again is calculated. If the rating is above a certain threshold, the interval increases, meaning the card will be scheduled for review later. If the rating is below this threshold, the interval is shorter.
+The interval (I) before the card should be reviewed again is calculated. If the rating is above a certain threshold, the interval increases, meaning the card will be scheduled for review later. If the rating is below this threshold, the interval is shorter.
 
-    The flashcard is then scheduled for review based on the calculated interval.
+The flashcard is then scheduled for review based on the calculated interval.
 
 This integration of the SM-2 algorithm in Review Mode ensures that the review sessions are personalized. Flashcards that are harder for the user are reviewed more frequently, while easier cards are gradually spaced out. This optimizes the learning process by focusing on material that the user finds challenging, and not overburdening them with content they already know well.
 
