@@ -74,4 +74,4 @@ Remember that Review Mode can only be conducted on flashcards that have a due re
 
 ## Unit testing
 
-FlashcardApp includes a suite of unit tests to ensure the integrity and reliability of the codebase. These tests focus on the core functionality, including the manipulation and management of cards, decks, and collections, as well as the integration with JSON files for data persistence. The unit tests are implemented using the pytest framework and cover key aspects such as:
+FlashcardApp includes a suite of unit tests to ensure the integrity and reliability of the codebase. These tests focus on the core functionality, including the manipulation and management of cards, decks, and collections, as well as the integration with JSON files for data persistence.
