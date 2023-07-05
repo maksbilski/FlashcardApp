@@ -77,6 +77,6 @@ Remember that Review Mode can only be conducted on flashcards that have a due re
 FlashcardApp includes a suite of unit tests to ensure the integrity and reliability of the codebase. These tests focus on the core functionality, including the manipulation and management of cards, decks, and collections, as well as the integration with JSON files for data persistence.
 
 ## App Presentation
-![Windows Image](./windows.png)
-![App1 GIF](./presentation.gif)
-![App2 GIF](./presentation2.gif)
+![Windows Image](./presentation/windows.png)
+![App1 GIF](./presentation/presentation.gif)
+![App2 GIF](./presentation/presentation2.gif)
