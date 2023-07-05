@@ -13,3 +13,24 @@ FlashcardApp is an interactive flashcard study application designed to help user
 - **Statistics**: Users can track their learning progress and application usage through statistical data. This includes the total minutes spent using the app, total test sessions count, total review sessions count, and total card reviews count. The application also provides visualizations of daily statistics for the current month.
 
 This application aims to offer a personalized and effective way for users to study various subjects through spaced repetition and self-assessment.
+
+## Tech Stack
+
+| Category           | Technologies               |
+| ------------------ | -------------------------- |
+| Front-end Framework | PySide2                   |
+| Data Visualization  | Matplotlib                |
+| Data Format         | JSON                      |
+| Testing Framework   | Pytest                    |
+
+### Front-end Framework
+- **PySide2**: PySide2 is used for creating the graphical user interface (GUI) of FlashcardApp. It is the official Python module from the Qt for Python project, which provides Python bindings for the Qt application framework. PySide2 allows for the development of highly functional and visually appealing GUIs.
+
+### Data Visualization
+- **Matplotlib**: Matplotlib is used for plotting charts and visualizations. It is a popular Python plotting library that provides object-oriented APIs for embedding plots into applications.
+
+### Data Format
+- **JSON**: JSON (JavaScript Object Notation) is used for data interchange
+
+### Testing Framework
+- **Pytest**: Pytest is employed for testing the application. It’s a mature full-featured Python testing tool that helps in writing better programs.
