@@ -1,5 +1,3 @@
-# FlashcardApp
-
 # Overview
 
 FlashcardApp is an interactive flashcard study application designed to help users enhance their learning experience. The application allows users to create decks of flashcards, review them, and test their knowledge. The key features of the application are:
