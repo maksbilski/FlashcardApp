@@ -12,8 +12,6 @@ FlashcardApp is an interactive flashcard study application designed to help user
 
 - **Statistics**: Users can track their learning progress and application usage through statistical data. This includes the total minutes spent using the app, total test sessions count, total review sessions count, and total card reviews count. The application also provides visualizations of daily statistics for the current month.
 
-This application aims to offer a personalized and effective way for users to study various subjects through spaced repetition and self-assessment.
-
 
 # Tech Stack
 
