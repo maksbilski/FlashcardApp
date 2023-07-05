@@ -1,4 +1,4 @@
-## Overview
+# Overview
 
 FlashcardApp is an interactive flashcard study application designed to help users enhance their learning experience. The application allows users to create decks of flashcards, review them, and test their knowledge. The key features of the application are:
 
@@ -14,7 +14,8 @@ FlashcardApp is an interactive flashcard study application designed to help user
 
 This application aims to offer a personalized and effective way for users to study various subjects through spaced repetition and self-assessment.
 
-## Tech Stack
+
+# Tech Stack
 
 | Category           | Technologies               |
 | ------------------ | -------------------------- |
@@ -35,7 +36,8 @@ This application aims to offer a personalized and effective way for users to stu
 ### Testing Framework
 - **Pytest**: Pytest is employed for testing the application. It’s a mature full-featured Python testing tool that helps in writing better programs.
 
-## Installation
+
+# Installation
 
 This section will guide you through the installation process of FlashcardApp.
 
@@ -67,20 +69,10 @@ This section will guide you through the installation process of FlashcardApp.
     python main.py
     ```
 
-## Review Mode and the SM-2 Algorithm
+
+# Review Mode and the SM-2 Algorithm
 
 In FlashcardApp, the "Start Review" feature incorporates a powerful learning technique called spaced repetition, utilizing the SM-2 algorithm. This section explains the functionality of the Review Mode and how the SM-2 algorithm is integrated to enhance the learning process.
-
-### Review Mode
-
-When the "Start Review" button, located below the list of cards, is clicked, the application initiates a review session for flashcards whose review date has passed. Flashcards are displayed one at a time, presenting the front side of each card.
-
-Users have two options for each card:
-
-    Type what they believe is on the back of the card.
-    If the answer is not remembered, users can click the “Show Answer” button to reveal the back of the card.
-
-In both cases, the application prompts the user to personally rate their knowledge of the card. Different rating options are presented depending on whether the user answered correctly or incorrectly. The user’s rating will be factored into the SM-2 algorithm, which calculates the next review date for that flashcard.
 
 ### Integration of the SM-2 Algorithm
 
