@@ -27,15 +27,6 @@ This application aims to offer a personalized and effective way for users to stu
 ### Front-end Framework
 - **PySide2**: PySide2 is used for creating the graphical user interface (GUI) of FlashcardApp. It is the official Python module from the Qt for Python project, which provides Python bindings for the Qt application framework. PySide2 allows for the development of highly functional and visually appealing GUIs.
 
-### Data Visualization
-- **Matplotlib**: Matplotlib is used for plotting charts and visualizations. It is a popular Python plotting library that provides object-oriented APIs for embedding plots into applications.
-
-### Data Format
-- **JSON**: JSON (JavaScript Object Notation) is used for data interchange
-
-### Testing Framework
-- **Pytest**: Pytest is employed for testing the application. It’s a mature full-featured Python testing tool that helps in writing better programs.
-
 
 # Installation
 
