@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 FlashcardApp is an interactive flashcard study application designed to help users enhance their learning experience. The application allows users to create decks of flashcards, review them, and test their knowledge. The key features of the application are:
 
@@ -12,7 +12,6 @@ FlashcardApp is an interactive flashcard study application designed to help user
 
 - **Statistics**: Users can track their learning progress and application usage through statistical data. This includes the total minutes spent using the app, total test sessions count, total review sessions count, and total card reviews count. The application also provides visualizations of daily statistics for the current month.
 
-This application aims to offer a personalized and effective way for users to study various subjects through spaced repetition and self-assessment.
 
 ## Tech Stack
 
@@ -26,11 +25,56 @@ This application aims to offer a personalized and effective way for users to stu
 ### Front-end Framework
 - **PySide2**: PySide2 is used for creating the graphical user interface (GUI) of FlashcardApp. It is the official Python module from the Qt for Python project, which provides Python bindings for the Qt application framework. PySide2 allows for the development of highly functional and visually appealing GUIs.
 
-### Data Visualization
-- **Matplotlib**: Matplotlib is used for plotting charts and visualizations. It is a popular Python plotting library that provides object-oriented APIs for embedding plots into applications.
 
-### Data Format
-- **JSON**: JSON (JavaScript Object Notation) is used for data interchange
+## Installation steps
 
-### Testing Framework
-- **Pytest**: Pytest is employed for testing the application. It’s a mature full-featured Python testing tool that helps in writing better programs.
+1. **Clone the Repository**: First, clone the FlashcardApp repository to your local machine. You can do this using Git via the command line:
+
+    ```sh
+    git clone https://github.com/YOUR_GITHUB_USERNAME/FlashcardApp.git
+    ```
+
+    Alternatively, you can download the ZIP archive of the repository from GitHub and extract it.
+
+2. **Navigate to the Repository Directory**: Use the command line to navigate into the directory where the repository has been cloned or extracted.
+
+    ```sh
+    cd FlashcardApp
+    ```
+
+3. **Install Dependencies**: FlashcardApp requires some additional Python libraries. Install these by executing the following command:
+
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4. **Run the Application**: Once the dependencies are installed, you can run FlashcardApp by executing:
+
+    ```sh
+    python main.py
+    ```
+
+
+## Review Mode and the SM-2 Algorithm
+
+The SM-2 algorithm is used in Review Mode to calculate the optimal intervals between reviews, enhancing memory retention. Here’s how it's integrated:
+
+The user’s personal rating of their knowledge of the flashcard plays a crucial role. The user rates their recall on a scale (e.g., from 0 to 5), with higher values indicating easier recall.
+
+Based on this rating, the SM-2 algorithm adjusts the Easiness Factor (EF) and calculates the next review date. The algorithm takes into account the number of times the card has been reviewed (n) and uses the rating to update the EF.
+
+The interval (I) before the card should be reviewed again is calculated. If the rating is above a certain threshold, the interval increases, meaning the card will be scheduled for review later. If the rating is below this threshold, the interval is shorter.
+
+The flashcard is then scheduled for review based on the calculated interval.
+
+This integration of the SM-2 algorithm in Review Mode ensures that the review sessions are personalized. Flashcards that are harder for the user are reviewed more frequently, while easier cards are gradually spaced out. This optimizes the learning process by focusing on material that the user finds challenging, and not overburdening them with content they already know well.
+
+Remember that Review Mode can only be conducted on flashcards that have a due review date. This ensures that the user is reviewing content at the optimal times based on their previous performance and the SM-2 algorithm.
+
+
+## Unit testing
+
+FlashcardApp includes a suite of unit tests to ensure the integrity and reliability of the codebase. These tests focus on the core functionality, including the manipulation and management of cards, decks, and collections, as well as the integration with JSON files for data persistence.
+
+## App Presentation
+![Game GIF](./presentation.gif)
