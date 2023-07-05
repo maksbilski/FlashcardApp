@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 FlashcardApp is an interactive flashcard study application designed to help users enhance their learning experience. The application allows users to create decks of flashcards, review them, and test their knowledge. The key features of the application are:
 
@@ -13,7 +13,7 @@ FlashcardApp is an interactive flashcard study application designed to help user
 - **Statistics**: Users can track their learning progress and application usage through statistical data. This includes the total minutes spent using the app, total test sessions count, total review sessions count, and total card reviews count. The application also provides visualizations of daily statistics for the current month.
 
 
-# Tech Stack
+## Tech Stack
 
 | Category           | Technologies               |
 | ------------------ | -------------------------- |
@@ -26,11 +26,7 @@ FlashcardApp is an interactive flashcard study application designed to help user
 - **PySide2**: PySide2 is used for creating the graphical user interface (GUI) of FlashcardApp. It is the official Python module from the Qt for Python project, which provides Python bindings for the Qt application framework. PySide2 allows for the development of highly functional and visually appealing GUIs.
 
 
-# Installation
-
-This section will guide you through the installation process of FlashcardApp.
-
-### Steps:
+## Installation steps
 
 1. **Clone the Repository**: First, clone the FlashcardApp repository to your local machine. You can do this using Git via the command line:
 
@@ -59,11 +55,7 @@ This section will guide you through the installation process of FlashcardApp.
     ```
 
 
-# Review Mode and the SM-2 Algorithm
-
-In FlashcardApp, the "Start Review" feature incorporates a powerful learning technique called spaced repetition, utilizing the SM-2 algorithm. This section explains the functionality of the Review Mode and how the SM-2 algorithm is integrated to enhance the learning process.
-
-### Integration of the SM-2 Algorithm
+## Review Mode and the SM-2 Algorithm
 
 The SM-2 algorithm is used in Review Mode to calculate the optimal intervals between reviews, enhancing memory retention. Here’s how it's integrated:
 
