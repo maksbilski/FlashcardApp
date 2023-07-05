@@ -70,3 +70,8 @@ The flashcard is then scheduled for review based on the calculated interval.
 This integration of the SM-2 algorithm in Review Mode ensures that the review sessions are personalized. Flashcards that are harder for the user are reviewed more frequently, while easier cards are gradually spaced out. This optimizes the learning process by focusing on material that the user finds challenging, and not overburdening them with content they already know well.
 
 Remember that Review Mode can only be conducted on flashcards that have a due review date. This ensures that the user is reviewing content at the optimal times based on their previous performance and the SM-2 algorithm.
+
+
+## Unit testing
+
+FlashcardApp includes a suite of unit tests to ensure the integrity and reliability of the codebase. These tests focus on the core functionality, including the manipulation and management of cards, decks, and collections, as well as the integration with JSON files for data persistence. The unit tests are implemented using the pytest framework and cover key aspects such as:
